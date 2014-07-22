@@ -9,7 +9,6 @@ import android.os.BatteryManager;
 import android.os.Binder;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -31,7 +30,7 @@ public class MyService extends Service {
         Log.i(TAG, "onCreate");
         makeText(this, "MyService#onCreate", LENGTH_SHORT).show();
 
-        msgList.add("hogehoge");
+        msgList.add("log collect start\r\n");
 
         // インテントフィルタ
         IntentFilter filter = new IntentFilter();
@@ -55,10 +54,11 @@ public class MyService extends Service {
         unregisterReceiver(broadcastReceiver_);
 
         Toast.makeText(this, msgList.size() + "個のログ", Toast.LENGTH_SHORT).show();
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for(String msg : msgList) {
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
             sb.append(msg);
+            sb.append(("\r\n"));
         }
         SdLog.put(sb.toString());
     }
