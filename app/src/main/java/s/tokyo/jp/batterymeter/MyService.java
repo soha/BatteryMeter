@@ -22,6 +22,11 @@ public class MyService extends Service {
 
     static final String TAG="ButteryMeterService";
 
+    /**
+     * 指定回数ログが溜まったらファイルに書き出す個数
+     */
+    static final int FILE_WRITE_LOG_COUNT = 10;
+
     static List<String> msgList = new ArrayList<String>();
     static int bLevel = 0;
 
@@ -53,6 +58,10 @@ public class MyService extends Service {
         Toast.makeText(this, "MyService#onDestroy", Toast.LENGTH_SHORT).show();
         unregisterReceiver(broadcastReceiver_);
 
+        writeLogFile();
+    }
+
+    private void writeLogFile() {
         Toast.makeText(this, msgList.size() + "個のログ", Toast.LENGTH_SHORT).show();
         StringBuilder sb = new StringBuilder();
         for(String msg : msgList) {
@@ -61,6 +70,8 @@ public class MyService extends Service {
             sb.append(("\r\n"));
         }
         SdLog.put(sb.toString());
+        //古いのは捨て新しいインスタンス作る
+        msgList = new ArrayList<String>();
     }
 
 
@@ -181,6 +192,11 @@ public class MyService extends Service {
                     long currentTimeMillis = System.currentTimeMillis();
                     msgList.add(currentTimeMillis + "," + batteryLevel);
                     writeLogMsg = "write log\n";
+
+
+                    if(msgList.size() > FILE_WRITE_LOG_COUNT) {
+                        writeLogFile();
+                    }
                 }
 
 
