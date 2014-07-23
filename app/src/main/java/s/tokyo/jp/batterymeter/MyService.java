@@ -11,7 +11,9 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import static android.widget.Toast.*;
@@ -190,8 +192,12 @@ public class MyService extends Service {
 
                     //ログファイルに出力
                     //SdLog.put(batteryLevel);
-                    long currentTimeMillis = System.currentTimeMillis();
-                    msgList.add(currentTimeMillis + "," + batteryLevel);
+                    Calendar cal = Calendar.getInstance();
+
+                    //フォーマットパターンを指定して表示する
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 E曜日 HH:mm:ss");
+
+                    msgList.add(cal.getTimeInMillis() + "," + sdf.format(cal.getTime()) + "," + batteryLevel);
                     writeLogMsg = "write log\n";
 
                     if(msgList.size() > FILE_WRITE_LOG_COUNT) {
