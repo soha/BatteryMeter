@@ -35,7 +35,7 @@ public class MyService extends Service {
         Log.i(TAG, "onCreate");
         makeText(this, "MyService#onCreate", LENGTH_SHORT).show();
 
-        msgList.add("log collect start\r\n");
+        msgList.add("log collect start");
 
         // インテントフィルタ
         IntentFilter filter = new IntentFilter();
@@ -185,6 +185,7 @@ public class MyService extends Service {
 
                 String writeLogMsg = "";
                 if (bLevel != newLevel) {
+                    //バッテリ残量が前回と比べて変化があったとき
                     bLevel = newLevel;
 
                     //ログファイルに出力
@@ -192,7 +193,6 @@ public class MyService extends Service {
                     long currentTimeMillis = System.currentTimeMillis();
                     msgList.add(currentTimeMillis + "," + batteryLevel);
                     writeLogMsg = "write log\n";
-
 
                     if(msgList.size() > FILE_WRITE_LOG_COUNT) {
                         writeLogFile();

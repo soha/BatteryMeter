@@ -20,13 +20,13 @@ public class SdLog {
         Log.e("SdLog", LOGDIR);
 
         if (!enable) return;
-        BufferedWriter bw = null;
 
         try {
 
             FileOutputStream file = new FileOutputStream(SDFILE, true);
-            bw = new BufferedWriter(new OutputStreamWriter(file, "UTF-8"));
-            bw.append(text + "\n");
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(file, "UTF-8"));
+            String line = text + "\r\n";
+            bw.append(line);
             bw.close();
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
