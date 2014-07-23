@@ -17,7 +17,7 @@ public class SdLog {
 
     static public void put(String text) {
 
-        Log.e("SdLog", LOGDIR);
+        Log.i("SdLog", LOGDIR);
 
         if (!enable) return;
 
