@@ -195,7 +195,7 @@ public class MyService extends Service {
                     Calendar cal = Calendar.getInstance();
 
                     //フォーマットパターンを指定して表示する
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy年MM月dd日 E曜日 HH:mm:ss");
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd,E,HH:mm:ss");
 
                     msgList.add(cal.getTimeInMillis() + "," + sdf.format(cal.getTime()) + "," + batteryLevel);
                     writeLogMsg = "write log\n";
