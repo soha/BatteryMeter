@@ -23,6 +23,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.UnknownHostException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class MongoLogPost extends AsyncTask<Uri.Builder, Void, String> {
     private final static String LOGDIR = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getPath();
@@ -88,6 +90,12 @@ public class MongoLogPost extends AsyncTask<Uri.Builder, Void, String> {
             }
 
             br.close();
+
+            Calendar cal = Calendar.getInstance();
+            //フォーマットパターンを指定して表示する
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+            File renamedFile = new File(LOGDIR + "/" + sdf.format(cal.getTime()));
+            file.renameTo(renamedFile);
 
         } catch (UnknownHostException e) {
             e.printStackTrace();
