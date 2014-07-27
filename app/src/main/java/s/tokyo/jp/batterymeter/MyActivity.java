@@ -30,7 +30,10 @@ public class MyActivity extends Activity {
         btn.setOnClickListener(btnListener);//リスナの登録
 
         btn = (Button) findViewById(R.id.UnbindButton);
-        btn.setOnClickListener(btnListener);//リスナの登録
+        btn.setOnClickListener(btnListener);//
+
+        btn = (Button) findViewById(R.id.UploadLogButton);
+        btn.setOnClickListener(btnListener);//
     }
 
     private View.OnClickListener btnListener = new View.OnClickListener() {
@@ -51,6 +54,11 @@ public class MyActivity extends Activity {
 
                 case R.id.UnbindButton://doUnbindService
                     doUnbindService();
+                    break;
+
+                case R.id.UploadLogButton://doUnbindService
+                    MongoLogPost postTask = new MongoLogPost(MyActivity.this);
+                    postTask.execute();
                     break;
 
                 default:
